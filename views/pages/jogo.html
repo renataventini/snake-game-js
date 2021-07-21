@@ -2,8 +2,8 @@
 <html>
 <body onKeyDown="pegadirecao(event.keyCode);">
 <title>Snake Game</title>
-<h2 align="center">JOGO DA COBRINHA</h2>
-<h5 align="center"> Renata Ventini</h5>
+<h2 align="center">Snake Game</h2>
+<h4 align="center" id="pontos">Pontuação:0</h4>
 
 <div id=principal></div>
 <script>
@@ -20,13 +20,21 @@
     mx=parseInt(Math.random()*10);
     my=parseInt(Math.random()*10);
     vivo=true;
+
+    let pontos = 0
+
     function anda(){
         document.getElementById('td'+cobra[cobra.length-1][0]+'_'+cobra[cobra.length-1][1]).style.background="#ffffff";
         if(mx==cobra[cobra.length-1][0]&&my==cobra[cobra.length-1][1]){
             mx=parseInt(Math.random()*10);
             my=parseInt(Math.random()*10);
             cobra[cobra.length]=[10,10];
+            pontos = pontos + 10;
+            document.getElementById("pontos").innerHTML ="Pontuação: "+pontos;
+            
+          
         }
+        
         for(x=cobra.length-1;x>0;x--){
             cobra[x][0]=cobra[x-1][0];
             cobra[x][1]=cobra[x-1][1];
@@ -37,10 +45,14 @@
         if(direcao==3)cobra[0][0]++;
         for(x=1;x<cobra.length;x++)if(cobra[0][0]==cobra[x][0]&&cobra[0][1]==cobra[x][1])vivo=false;
         if(cobra[0][0]<0||cobra[0][1]<0||cobra[0][0]>9||cobra[0][1]>9)vivo=false;
+
+        
         document.getElementById('td'+cobra[0][0]+'_'+cobra[0][1]).style.background="#333333";
         document.getElementById('td'+mx+'_'+my).style.background="#ff3333";
+        
+
         if(vivo)setTimeout('anda()',300);
-        else alert('Fim de jogo');
+        else alert('Fim de jogo! Sua pontuação foi: ' + pontos);
     }
     anda();
     function pegadirecao(tecla){
@@ -49,7 +61,11 @@
         if(tecla==38)direcao=1;
         if(tecla==39)direcao=2;
         if(tecla==40)direcao=3;
+        
     }
+    
+
 </script>
+<h5 align="center">Renata Ventini</h5>
 </body>
 </html>
